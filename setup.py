@@ -11,7 +11,7 @@ setup(name='singer-tap-amazon-mws',
       py_modules=['singer_tap_amazon_mws'],
       install_requires=[
           'tap-framework==0.0.4',
-          'mws',
+          'mws==0.7.4',
       ],
       entry_points='''
           [console_scripts]
