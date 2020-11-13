@@ -43,14 +43,14 @@ class ProductStream(InventoryIterationStream):
             return self.transform_record(parsed_record)
         except Exception as e:
             if hasattr(parsed, 'Id'):
-                LOGGER.info("WARNING: Couldn't sync product with SellerSKU={}; {}".format(parsed.Id, e))
+                LOGGER.info("WARNING: Couldn't sync product with SellerSKU={}; {}".format(parsed.Id, e.Error))
             else:
                 LOGGER.info("WARNING: Couldn't sync product {}; {}".format(parsed, e))
             return None
 
     def sync_records(self, request_config, end_date=None):
         table = self.TABLE
-        raw_product =  self.client.fetch_products(request_config)
+        raw_product = self.client.fetch_products(request_config)
         product = self.get_stream_data(raw_product)
 
         if product is not None:

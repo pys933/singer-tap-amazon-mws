@@ -27,7 +27,7 @@ class InventoryStream(PaginatedStream):
         start_date_dt = parse(start_date).date()
 
         return {
-            "datetime": start_date_dt,
+            "datetime_": start_date_dt,
             "response_group": "Basic"
         }
 
@@ -68,7 +68,7 @@ class InventoryStream(PaginatedStream):
 
     def sync_records(self, request_config, end_date=None):
         table = self.TABLE
-        raw_inventory =  self.client.fetch_inventory(request_config)
+        raw_inventory = self.client.fetch_inventory(request_config)
         inventory = self.get_stream_data(raw_inventory)
 
         with singer.metrics.record_counter(endpoint=table) as counter:
