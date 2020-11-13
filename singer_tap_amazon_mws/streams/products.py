@@ -43,9 +43,9 @@ class ProductStream(InventoryIterationStream):
             return self.transform_record(parsed_record)
         except Exception as e:
             if hasattr(parsed, 'Id'):
-                LOGGER.info("WARNING: Couldn't sync product with SellerSKU={}; {}".format(parsed.Id, e.Error))
+                LOGGER.warning("WARNING: Couldn't sync product with SellerSKU={}; {}".format(parsed.Id, e))
             else:
-                LOGGER.info("WARNING: Couldn't sync product {}; {}".format(parsed, e))
+                LOGGER.warning("WARNING: Couldn't sync product {}; {}".format(parsed, e))
             return None
 
     def sync_records(self, request_config, end_date=None):

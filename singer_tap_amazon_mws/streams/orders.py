@@ -184,7 +184,7 @@ class OrdersStream(PaginatedStream):
             records.append(self.transform_record(parsed_record))
 
         if len(records) > 0:
-            LOGGER.info('DEBUG: last record is from: {}'.format(records[-1]['LastUpdateDate']))
+            LOGGER.debug('DEBUG: last record is from: {}'.format(records[-1]['LastUpdateDate']))
         return records
 
     def sync_records(self, request_config, end_date=None):

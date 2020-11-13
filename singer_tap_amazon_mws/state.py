@@ -53,6 +53,6 @@ def load_state(filename):
     try:
         with open(filename) as handle:
             return json.load(handle)
-    except:
-        LOGGER.fatal("Failed to decode state file. Is it valid json?")
+    except Exception as e:
+        LOGGER.fatal(f"Failed to decode state file. Is it valid json?\nError: {e}")
         raise RuntimeError

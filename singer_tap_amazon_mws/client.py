@@ -55,11 +55,11 @@ class AmazonMWSClient:
                 return self.orders_api.list_orders(**request_config)
             except mws.mws.MWSError as e:
                 exc = e
-                LOGGER.info("Encountered an error while fetching orders, sleeping")
+                LOGGER.error("Encountered an error while fetching orders, sleeping")
                 LOGGER.error(e)
                 time.sleep(60 * (i + 1))
         else:
-            LOGGER.info("Failed after {} queries - raising".format(self.MAX_TRIES))
+            LOGGER.exception(msg="fetch_orders() failed after {} queries - raising".format(self.MAX_TRIES), exc_info=exc)
             raise exc
 
     def _fetch_order_items(self, request_config):
@@ -71,11 +71,11 @@ class AmazonMWSClient:
                 return self.orders_api.list_order_items(**request_config)
             except mws.mws.MWSError as e:
                 exc = e
-                LOGGER.info("Encountered an error while fetching order items, sleeping")
+                LOGGER.error("Encountered an error while fetching order items, sleeping")
                 LOGGER.error(e)
                 time.sleep(20 * (i + 1))
         else:
-            LOGGER.info("Failed after {} queries - raising".format(self.MAX_TRIES))
+            LOGGER.exception(msg="_fetch_order_items() failed after {} queries - raising".format(self.MAX_TRIES), exc_info=exc)
             raise exc
 
     def handle_order_items(self, resp):
@@ -114,11 +114,11 @@ class AmazonMWSClient:
                 return self.inventory_api.list_inventory_supply(**request_config)
             except mws.mws.MWSError as e:
                 exc = e
-                LOGGER.info("Encountered an error while fetching inventory, sleeping")
+                LOGGER.error("Encountered an error while fetching inventory, sleeping")
                 LOGGER.error(e)
                 time.sleep(60 * (i + 1))
         else:
-            LOGGER.info("Failed after {} queries - raising".format(self.MAX_TRIES))
+            LOGGER.exception(msg="fetch_inventory() failed after {} queries - raising".format(self.MAX_TRIES), exc_info=exc)
             raise exc
 
     def fetch_products(self, request_config):
@@ -134,5 +134,5 @@ class AmazonMWSClient:
                 LOGGER.error(e)
                 time.sleep(60 * (i + 1))
         else:
-            LOGGER.info("Failed after {} queries - raising".format(self.MAX_TRIES))
+            LOGGER.exception("fetch_products() failed after {} queries - raising".format(self.MAX_TRIES), exc_info=exc)
             raise exc
