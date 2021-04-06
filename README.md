@@ -1,5 +1,7 @@
 # singer-tap-amazon-mws
 
+This repo is forked to allow setting end date for fetching order data
+
 Author: Ian McAllister (ian@mcallisternevins.com)
 
 Forked from (& most of the work done by):
